@@ -4,7 +4,39 @@ import _Concurrency
 
 var subscriptions = Set<AnyCancellable>()
 
-<#Add your code here#>
+example(of: "Custom Subscriber") {
+    // 1
+    let publisher = (1...6).publisher
+
+    // 2
+    final class IntSubscriber: Subscriber {
+        // 3
+        typealias Input = Int
+        typealias Failure = Never
+
+        // 4
+        func receive(subscription: Subscription) {
+            subscription.request(.max(1))
+        }
+
+        // 5
+        func receive(_ input: Int) -> Subscribers.Demand {
+            print("Received value", input)
+            return .max(1)
+        }
+
+        // 6
+        func receive(completion: Subscribers.Completion<Never>) {
+            print("Received completion", completion)
+        }
+    }
+
+    let subscriber = IntSubscriber()
+
+    publisher.subscribe(subscriber)
+}
+
+
 
 /// Copyright (c) 2021 Razeware LLC
 ///
