@@ -4,7 +4,23 @@ import Foundation
 // A subject you get values from
 let subject = PassthroughSubject<Int, Never>()
 
-<#Add your code here#>
+let strings = subject
+    .collect(.byTime(DispatchQueue.main, .seconds(0.5)))
+    .map { array in
+        String(array.map { Character(Unicode.Scalar($0)!) })
+    }
+
+let spaces = subject.measureInterval(using: DispatchQueue.main)
+    .map { interval in
+        interval > 0.9 ? "👏" : nil
+    }
+
+let subscription = strings
+    .merge(with: spaces.compactMap { $0 })
+    .sink {
+        print($0)
+    }
+
 
 // Let's roll!
 startFeeding(subject: subject)

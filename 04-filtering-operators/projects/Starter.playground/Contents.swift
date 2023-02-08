@@ -3,7 +3,13 @@ import Combine
 
 var subscriptions = Set<AnyCancellable>()
 
-<#Add your code here#>
+example(of: "Homework") {
+    let _ = (1...100).publisher
+        .dropFirst(50)
+        .prefix(20)
+        .filter { $0 % 2 == 0 }
+        .sink(receiveValue: { print($0) })
+}
 
 /// Copyright (c) 2021 Razeware LLC
 ///
