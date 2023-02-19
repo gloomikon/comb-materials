@@ -126,7 +126,8 @@ extension Publishers {
         subscriber: subscriber,
         replay: replay,
         capacity: capacity,
-        completion: completion)
+        completion: completion
+      )
 
       // 35
       subscriptions.append(subscription)
