@@ -23,9 +23,15 @@ PlaygroundPage.current.liveView = UIHostingController(rootView: view)
 
 // Challenge 1: first method
 
+sourceQueue.asyncAfter(deadline: .now() + 4) {
+    subscription.cancel()
+}
 
 // Challenge 1: second method
 
+sourceQueue.schedule(after: sourceQueue.now.advanced(by: 4)) {
+    subscription.cancel()
+}
 
 /*:
  Copyright (c) 2021 Razeware LLC

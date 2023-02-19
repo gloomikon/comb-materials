@@ -13,7 +13,7 @@ let setupPublisher = { recorder in
   source
     .handleEvents(receiveSubscription: { _ in threadRecorder = recorder })
     // 1
-    .subscribe(on: DispatchQueue.global())
+    .receive(on: DispatchQueue.global())
     .recordThread(using: recorder)
     // 2
     .receive(on: RunLoop.current)
@@ -24,11 +24,11 @@ let setupPublisher = { recorder in
 let view = ThreadRecorderView(title: "Using RunLoop", setup: setupPublisher)
 PlaygroundPage.current.liveView = UIHostingController(rootView: view)
 
-RunLoop.current.schedule(
-  after: .init(Date(timeIntervalSinceNow: 4.5)),
-  tolerance: .milliseconds(500)) {
-    threadRecorder?.subscription?.cancel()
-  }
+//RunLoop.current.schedule(
+//  after: .init(Date(timeIntervalSinceNow: 4.5)),
+//  tolerance: .milliseconds(500)) {
+//    threadRecorder?.subscription?.cancel()
+//  }
 
 //: [Next](@next)
 /*:

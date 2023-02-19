@@ -33,8 +33,8 @@ import Combine
 struct HNReader: App {
   private var subscriptions = Set<AnyCancellable>()
   
-  let userSettings = Settings()
-  let viewModel = ReaderViewModel()
+  private let userSettings = Settings()
+  private let viewModel = ReaderViewModel()
 
   init() {
     userSettings.$keywords
