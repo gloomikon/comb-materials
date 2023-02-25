@@ -153,4 +153,23 @@ class ColorCalcTests: XCTestCase {
       "Color expected to be \(expected) but was \(result)"
     )
   }
+
+    func test_emptyHexOnClear() {
+        // GIVEN
+        let expected = "#"
+        var result = ""
+
+        viewModel.$hexText
+            .sink(receiveValue: { result = $0 })
+            .store(in: &subscriptions)
+
+        // WHEN
+        viewModel.process(CalculatorViewModel.Constant.clear)
+
+        // THEN
+        XCTAssert(
+            result == expected,
+            "Hex expected to be \(expected) but was \(result)"
+        )
+    }
 }
